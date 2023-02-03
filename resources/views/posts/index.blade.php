@@ -18,7 +18,9 @@
                             <th>Title</th>
                             <th>Content</th>
                             <th>Date</th>
+                            @if(auth()->user()->role == 'admin')
                             <th>Action</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -29,12 +31,14 @@
                                 <td>{{ $post->title }}</td>
                                 <td>{{ $post->content }}</td>
                                 <td>{{ $post->date }}</td>
+                                @if(auth()->user()->role == 'admin')
                                 <td class="d-flex">
                                     <a href="{{ route('post.edit',$post->id) }}" class="btn btn-warning btn-sm mr-1" title="edit ?"><i class="fas fa-edit"></i></a>
                                     <form action="{{ route('post.destroy',$post->id) }}" method="post">@method("DELETE")@csrf
                                         <button type="submit" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus Data ini ?')" class="btn btn-danger btn-sm" title="Delete ?"><i class="fas fa-trash"></i></button>
                                     </form>
                                 </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>
